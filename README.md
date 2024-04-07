@@ -1,1 +1,1 @@
-# Django-React-Project
+# Notes App
