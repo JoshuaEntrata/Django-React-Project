@@ -66,7 +66,9 @@ function Home() {
           <Note note={note} onDelete={deleteNote} key={note.id} />
         ))}
       </div>
-      <h2>Create a Note</h2>
+      <div className="flex justify-center items-center bg-blue-500">
+        <h2>Create a Note</h2>
+      </div>
       <form onSubmit={createNote}>
         <label htmlFor="title">Title:</label>
         <br />
