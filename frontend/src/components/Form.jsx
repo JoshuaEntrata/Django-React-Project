@@ -52,6 +52,11 @@ function Form({ route, method }) {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
+      {method == "login" ? (
+        <p onClick={() => navigate("/register")}>Register</p>
+      ) : (
+        <p onClick={() => navigate("/login")}>Sign In</p>
+      )}
       <button className="form-button" type="submit" disabled={loading}>
         {name}
       </button>
