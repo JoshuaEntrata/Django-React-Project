@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../const/constants";
 import "../styles/Form.css";
 
-function Form({ route, method }) {
+type Props = {
+  route: string;
+  method: "login" | "register";
+};
+
+function Form({ route, method }: Props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,7 +17,7 @@ function Form({ route, method }) {
 
   const name = method === "login" ? "Login" : "Register";
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     setLoading(true);
     e.preventDefault();
 

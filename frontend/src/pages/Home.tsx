@@ -1,12 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import api from "../api/api";
 import Note from "../components/Note";
 import "../styles/Home.css";
 import { useNavigate } from "react-router-dom";
 
+type NoteProps = {
+  id: string;
+  title: string;
+  content: string;
+  created_at: string;
+};
+
 function Home() {
   const navigate = useNavigate();
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<NoteProps[]>([]);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
 
@@ -17,7 +24,7 @@ function Home() {
   const getNotes = () => {
     api
       .get("/api/notes/")
-      .then((res) => res.data)
+      .then((res) => res.data as NoteProps[])
       .then((data) => {
         setNotes(data);
         console.log("data: ", data);
@@ -25,7 +32,7 @@ function Home() {
       .catch((err) => alert(err));
   };
 
-  const deleteNote = (id) => {
+  const deleteNote = (id: string) => {
     api
       .delete(`/api/notes/delete/${id}/`)
       .then((res) => {
@@ -37,7 +44,7 @@ function Home() {
       .catch((error) => alert(error));
   };
 
-  const createNote = (e) => {
+  const createNote = (e: FormEvent) => {
     e.preventDefault();
     api
       .post("/api/notes/", { content, title })

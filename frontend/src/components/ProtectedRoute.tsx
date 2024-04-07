@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import api from "../api/api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../const/constants";
 
-function ProtectedRoute({ children }) {
-  const [isAuthorized, setIsAuthorized] = useState(null);
+type Props = {
+  children: ReactNode;
+};
+
+function ProtectedRoute({ children }: Props) {
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
     auth().catch(() => setIsAuthorized(false));
@@ -20,6 +24,7 @@ function ProtectedRoute({ children }) {
 
       if (res.status === 200) {
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
+        console.log("access");
         setIsAuthorized(true);
       } else {
         setIsAuthorized(false);
@@ -42,7 +47,7 @@ function ProtectedRoute({ children }) {
     const tokenExpiration = decoded.exp;
     const now = Date.now() / 1000;
 
-    if (tokenExpiration < now) {
+    if (tokenExpiration && tokenExpiration < now) {
       await refreshToken();
     } else {
       setIsAuthorized(true);
