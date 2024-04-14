@@ -1,4 +1,11 @@
-# Notes App
+# Django-React-Project
+
+### Tech Stack Used
+- Python
+- Django
+- React
+- TypeScript
+- TailwindCSS
 
 ### Status
 In progress
