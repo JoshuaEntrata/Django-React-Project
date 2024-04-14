@@ -1,5 +1,8 @@
 # Notes App
 
+### Status
+In progress
+
 ### How to run
 
 1. Activate Python virtual environment `env\Scripts\activate.bat`
